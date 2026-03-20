@@ -8,7 +8,6 @@
 - `VITE_TARUVI_BASE_URL`: infer site from hostname only when an explicit site is not provided
 - `TARUVI_FRONTEND_WORKER_SITE`: optional override for the Taruvi site name
 - `TARUVI_FRONTEND_WORKER_APP`: optional override for the multipart `app` field; default to `VITE_TARUVI_APP_SLUG`
-- `TARUVI_FRONTEND_WORKER_BEARER_TOKEN` or `TARUVI_CONSOLE_ACCESS_TOKEN`: bearer token for `set-active-build`
 
 ## API Flow
 
@@ -44,6 +43,10 @@ https://api.taruvi.cloud/sites/<site>/api/cloud/frontend_workers/<worker-id-or-s
 Set-active-build request body:
 
 - `build_uuid`
+
+Set-active-build auth:
+
+- `Authorization: Api-Key <VITE_TARUVI_API_KEY>`
 
 ## Selection Rules
 

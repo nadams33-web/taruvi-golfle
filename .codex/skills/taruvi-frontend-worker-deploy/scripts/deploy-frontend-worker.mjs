@@ -244,14 +244,6 @@ async function requestJson(url, options) {
   };
 }
 
-function bearerHeaders(token) {
-  return {
-    Accept: "*/*",
-    Authorization: `Bearer ${token}`,
-    "Content-Type": "application/json",
-  };
-}
-
 function toArray(payload) {
   if (Array.isArray(payload)) return payload;
   if (Array.isArray(payload?.results)) return payload.results;
@@ -351,10 +343,13 @@ async function createWorker(collectionUrl, apiKey, zipPath, filename, name, inte
   });
 }
 
-async function setActiveBuild(detailUrl, activationToken, buildUuid) {
+async function setActiveBuild(detailUrl, apiKey, buildUuid) {
   const response = await requestJson(new URL("set-active-build/", detailUrl).toString(), {
     body: JSON.stringify({ build_uuid: buildUuid }),
-    headers: bearerHeaders(activationToken),
+    headers: {
+      ...authHeaders(apiKey),
+      "Content-Type": "application/json",
+    },
     method: "PATCH",
   });
 
@@ -365,7 +360,7 @@ async function setActiveBuild(detailUrl, activationToken, buildUuid) {
   return response.data ?? response.text;
 }
 
-async function maybeActivateBuild(worker, detailUrl, activationToken, activateBuild) {
+async function maybeActivateBuild(worker, detailUrl, apiKey, activateBuild) {
   const payload = workerPayload(worker);
   const latestBuildUuid = payload?.latest_build?.uuid;
   const activeBuildUuid = payload?.active_build_uuid ?? payload?.active_build_info?.uuid;
@@ -381,12 +376,7 @@ async function maybeActivateBuild(worker, detailUrl, activationToken, activateBu
     console.log("Latest build is already active");
     return null;
   }
-  if (!activationToken) {
-    console.log("No activation bearer token configured, skipping active build step");
-    return null;
-  }
-
-  const activationResult = await setActiveBuild(detailUrl, activationToken, latestBuildUuid);
+  const activationResult = await setActiveBuild(detailUrl, apiKey, latestBuildUuid);
   console.log(`Set build '${latestBuildUuid}' as active`);
   console.log(JSON.stringify(activationResult, null, 2));
   return activationResult;
@@ -402,8 +392,6 @@ async function main() {
   const apiKey = env.VITE_TARUVI_API_KEY;
   const appName = args.appName || env.VITE_TARUVI_APP_SLUG;
   const appField = args.appField || env.TARUVI_FRONTEND_WORKER_APP || env.VITE_TARUVI_APP_SLUG;
-  const activationToken =
-    args.activationToken || env.TARUVI_FRONTEND_WORKER_BEARER_TOKEN || env.TARUVI_CONSOLE_ACCESS_TOKEN;
   const site = args.site || env.TARUVI_FRONTEND_WORKER_SITE || inferSiteFromBaseUrl(env.VITE_TARUVI_BASE_URL);
 
   if (!apiKey) {
@@ -460,7 +448,7 @@ async function main() {
       const updateResult = await patchWorker(detailUrl, apiKey, zipPath, filename);
       console.log(`Updated existing frontend worker '${appName}'`);
       console.log(JSON.stringify(updateResult, null, 2));
-      await maybeActivateBuild(updateResult, detailUrl, activationToken, args.activateBuild);
+      await maybeActivateBuild(updateResult, detailUrl, apiKey, args.activateBuild);
       return;
     }
 
@@ -479,7 +467,7 @@ async function main() {
       console.log(JSON.stringify(createResult.data, null, 2));
       const detailUrl = workerDetailUrl(createResult.data, collectionUrl, args.apiBase);
       if (detailUrl) {
-        await maybeActivateBuild(createResult.data, detailUrl, activationToken, args.activateBuild);
+        await maybeActivateBuild(createResult.data, detailUrl, apiKey, args.activateBuild);
       }
       return;
     }
@@ -498,7 +486,7 @@ async function main() {
       const updateResult = await patchWorker(detailUrl, apiKey, zipPath, filename);
       console.log(`Updated existing frontend worker '${appName}' after create conflict`);
       console.log(JSON.stringify(updateResult, null, 2));
-      await maybeActivateBuild(updateResult, detailUrl, activationToken, args.activateBuild);
+      await maybeActivateBuild(updateResult, detailUrl, apiKey, args.activateBuild);
       return;
     }
 
@@ -521,7 +509,7 @@ async function main() {
         console.log(JSON.stringify(createResult.data, null, 2));
         const detailUrl = workerDetailUrl(createResult.data, collectionUrl, args.apiBase);
         if (detailUrl) {
-          await maybeActivateBuild(createResult.data, detailUrl, activationToken, args.activateBuild);
+          await maybeActivateBuild(createResult.data, detailUrl, apiKey, args.activateBuild);
         }
         return;
       }
