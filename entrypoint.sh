@@ -10,18 +10,23 @@ if [ -f ".env" ]; then
   export $(grep -v '^\s*#' .env | grep -v '^\s*$' | xargs)
 fi
 
+TARUVI_SITE_URL="${TARUVI_SITE_URL:-${VITE_TARUVI_BASE_URL:-}}"
+TARUVI_SITE_URL="${TARUVI_SITE_URL%/}"
+TARUVI_APP_SLUG="${TARUVI_APP_SLUG:-${VITE_TARUVI_APP_SLUG:-}}"
+TARUVI_API_KEY="${TARUVI_API_KEY:-${VITE_TARUVI_API_KEY:-}}"
+
 # Setup Codex config with resolved env values
 export CODEX_HOME=/app/.codex
 mkdir -p "$CODEX_HOME"
 
 cat > "$CODEX_HOME/config.toml" <<EOF
 [mcp_servers.taruvi]
-url = "${VITE_TARUVI_BASE_URL}/mcp/"
+url = "${TARUVI_SITE_URL}/mcp/"
 
 [mcp_servers.taruvi.http_headers]
 Accept = "application/json, text/event-stream"
-Authorization = "Api-Key ${VITE_TARUVI_API_KEY}"
-X-App-Slug = "${VITE_TARUVI_APP_SLUG}"
+Authorization = "Api-Key ${TARUVI_API_KEY}"
+X-App-Slug = "${TARUVI_APP_SLUG}"
 EOF
 
 # Copy auth.json into CODEX_HOME

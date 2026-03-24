@@ -18,6 +18,8 @@ Object.entries(requiredEnvVars).forEach(([key, value]) => {
 
 /**
  * Taruvi Client instance configured with environment variables.
+ * Participant-facing setup uses TARUVI_* variables, which are synced into
+ * Vite-compatible VITE_TARUVI_* values by the setup scripts.
  * Used for Navkit, DataProviders, and direct SDK operations.
  *
  * @example

@@ -32,6 +32,21 @@ function updateEnvFile(envValues) {
 
   // Replace placeholders with actual values
   envContent = envContent.replace(
+    'TARUVI_SITE_URL=',
+    `TARUVI_SITE_URL=${envValues.baseUrl}`
+  );
+
+  envContent = envContent.replace(
+    'TARUVI_API_KEY=',
+    `TARUVI_API_KEY=${envValues.apiKey}`
+  );
+
+  envContent = envContent.replace(
+    'TARUVI_APP_SLUG=',
+    `TARUVI_APP_SLUG=${envValues.appSlug}`
+  );
+
+  envContent = envContent.replace(
     'VITE_TARUVI_BASE_URL=',
     `VITE_TARUVI_BASE_URL=${envValues.baseUrl}`
   );

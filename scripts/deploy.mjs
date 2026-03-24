@@ -60,11 +60,11 @@ async function main() {
 
   // 1. Load env
   const env = loadEnv();
-  const apiKey = env.VITE_TARUVI_API_KEY;
-  const appSlug = env.VITE_TARUVI_APP_SLUG;
+  const apiKey = env.TARUVI_API_KEY || env.VITE_TARUVI_API_KEY;
+  const appSlug = env.TARUVI_APP_SLUG || env.VITE_TARUVI_APP_SLUG;
 
   if (!apiKey) {
-    console.error("ERROR: VITE_TARUVI_API_KEY not found in .env");
+    console.error("ERROR: TARUVI_API_KEY not found in .env");
     process.exit(1);
   }
 

@@ -100,9 +100,9 @@ docker run --rm -it -v .:/app repo.eoxvantage.com/hackathon/environment codex
 Copy `.env.example` to `.env` and fill in your values:
 
 ```env
-VITE_TARUVI_BASE_URL=https://playground.taruvi.cloud
-VITE_TARUVI_API_KEY=your-api-key
-VITE_TARUVI_APP_SLUG=your-app-slug
+TARUVI_SITE_URL=https://playground.taruvi.cloud
+TARUVI_API_KEY=your-api-key
+TARUVI_APP_SLUG=your-app-slug
 VITE_TARUVI_APP_TITLE=Your App Title
 ```
 

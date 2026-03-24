@@ -1,50 +1,82 @@
-# taruvi-refine-template
+# Taruvi Hackathon Template (Refine v5)
 
-<div align="center" style="margin: 30px;">
-    <a href="https://refine.dev">
-    <img alt="refine logo" src="https://refine.ams3.cdn.digitaloceanspaces.com/readme/refine-readme-banner.png">
-    </a>
-</div>
-<br/>
+This repository is the official starter template for Taruvi hackathons.
 
-This [Refine](https://github.com/refinedev/refine) project was generated with [create refine-app](https://github.com/refinedev/refine/tree/master/packages/create-refine-app).
+It includes:
+- A Refine v5 + React app scaffold
+- GitHub Codespaces-ready devcontainer setup
+- Guided Codex startup flow for required Taruvi environment variables
+- MCP configuration for Taruvi + helpful developer tools
 
-## Getting Started
+## Who This Is For
 
-A React Framework for building internal tools, admin panels, dashboards & B2B apps with unmatched flexibility ✨
+- **Participants**: use this template to start building quickly in Codespaces.
+- **Organizers/Mentors**: use this for standardized onboarding across teams.
 
-Refine's hooks and components simplifies the development process and eliminates the repetitive tasks by providing industry-standard solutions for crucial aspects of a project, including authentication, access control, routing, networking, state management, and i18n.
+## Hackathon Flow
 
-## Available Scripts
+### Organizer-side (Advanced setup)
+1. Sign up for GitHub Codespaces in Advanced.
+2. Create sites for each group based on color coding in Advanced.
+3. Create separate `auth.json` files for each group and share via your platform.
+4. Ensure participants accept their Taruvi Console invite.
 
-### Running the development server.
+### Participant-side setup
+0. In Taruvi Console, create your app and collect:
+   - `TARUVI_SITE_URL` (site URL)
+   - `TARUVI_API_KEY`
+   - `TARUVI_APP_SLUG`
+1. Open this repo when the hackathon starts:
+   - https://github.com/Taruvi-ai/taruvi-hacks-template
+2. Create a GitHub Codespace (first load is usually ~2.5 minutes).
+3. Copy your group `auth.json` into `.codex/auth.json` inside the workspace.
+4. Open `.env`, paste your `TARUVI_SITE_URL`, `TARUVI_APP_SLUG`, and `TARUVI_API_KEY`, then save.
+
+## Codespaces Behavior (Important)
+
+When Codex starts in the devcontainer:
+- It verifies required Taruvi env vars are present.
+- If missing, it asks you to update `.env` with `TARUVI_SITE_URL`, `TARUVI_APP_SLUG`, and `TARUVI_API_KEY`.
+- It writes `.codex/config.toml` with resolved Taruvi values.
+- It syncs Vite-compatible `VITE_TARUVI_*` values automatically for the frontend.
+- It attempts to install the Codex VS Code extension.
+- It launches Codex after setup is complete.
+
+## Updating Config Later
+
+If you change your Taruvi site, app slug, or API key later:
+1. Edit `.env`
+2. Update `TARUVI_SITE_URL`, `TARUVI_APP_SLUG`, or `TARUVI_API_KEY`
+3. Run `npm run codex:refresh`
+4. Restart Codex if needed
+
+## Security Notes
+
+- `auth.json` is **required locally** but must **never be committed**.
+- `.codex/auth.json` and root `auth.json` are gitignored.
+- If an auth file was ever committed accidentally, rotate/revoke credentials.
+
+## Local Commands
 
 ```bash
-    npm run dev
+npm run dev
+npm run build
+npm run start
 ```
 
-### Building for production.
+## Tech Stack
 
-```bash
-    npm run build
-```
-
-### Running the production server.
-
-```bash
-    npm run start
-```
+- [Refine](https://refine.dev)
+- React + TypeScript
+- MUI
+- Taruvi Providers + Taruvi MCP integration
 
 ## Learn More
 
-To learn more about **Refine**, please check out the [Documentation](https://refine.dev/docs)
-
-- **REST Data Provider** [Docs](https://refine.dev/docs/core/providers/data-provider/#overview)
-- **Material UI** [Docs](https://refine.dev/docs/ui-frameworks/mui/tutorial/)
-- **React Router** [Docs](https://refine.dev/docs/core/providers/router-provider/)
-- **Custom Auth Provider** [Docs](https://refine.dev/docs/core/providers/auth-provider/)
+- [Refine Docs](https://refine.dev/docs)
+- [Refine Data Provider Docs](https://refine.dev/docs/core/providers/data-provider/#overview)
+- [Refine MUI Docs](https://refine.dev/docs/ui-frameworks/mui/tutorial/)
 
 ## License
 
 MIT
-# taruvi-refine-template

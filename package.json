@@ -56,7 +56,9 @@
     "build": "tsc && refine build",
     "start": "refine start",
     "refine": "refine",
-    "setup": "node setup-env.js"
+    "setup": "node setup-env.js",
+    "codex:refresh": "bash scripts/refresh-codex-config.sh",
+    "codex:start": "bash scripts/start-codex-devcontainer.sh"
   },
   "browserslist": {
     "production": [
