@@ -20,19 +20,19 @@ node .codex/skills/taruvi-frontend-worker-deploy/scripts/deploy-frontend-worker.
   --project-root /absolute/path/to/project
 ```
 
-4. Let the script infer the site from `VITE_TARUVI_BASE_URL` by default. Pass `--site` only when you need to override it.
+4. Let the script infer the site from `TARUVI_SITE_URL` by default. Pass `--site` only when you need to override it.
 5. Use `--dry-run` to validate the build and zip flow without uploading anything.
 6. If the build fails because local tools are missing, install the project dependencies before retrying the deploy.
 7. The bundled script sets `XDG_CONFIG_HOME` inside the project during builds so `refine build` does not fail on machines where home-directory config writes are blocked.
-8. After upload, the script attempts to set the newest build active automatically with the same `VITE_TARUVI_API_KEY`.
+8. After upload, the script attempts to set the newest build active automatically with the same `TARUVI_API_KEY`.
 
 ## Defaults
 
 - Read auth from the project `.env` or `.env.local`.
-- Use `VITE_TARUVI_API_KEY` as an `Authorization: Api-Key ...` credential.
-- Use `VITE_TARUVI_APP_SLUG` as the preferred frontend worker name.
-- Use `VITE_TARUVI_APP_SLUG` as the frontend worker `app` field too.
-- Use `TARUVI_FRONTEND_WORKER_SITE` when present; otherwise infer the site from `VITE_TARUVI_BASE_URL`.
+- Use `TARUVI_API_KEY` as an `Authorization: Api-Key ...` credential.
+- Use `TARUVI_APP_SLUG` as the preferred frontend worker name.
+- Use `TARUVI_APP_SLUG` as the frontend worker `app` field too.
+- Use `TARUVI_FRONTEND_WORKER_SITE` when present; otherwise infer the site from `TARUVI_SITE_URL`.
 - For this repo's current `.env`, the inferred site is `hackkj` and the worker name is `test`.
 - Create the worker with the app slug first.
 - If a worker with that exact name already exists, patch its file upload instead of creating a duplicate.

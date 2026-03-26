@@ -47,8 +47,8 @@ function updateEnvFile(envValues) {
   );
 
   envContent = envContent.replace(
-    'VITE_TARUVI_APP_TITLE=CRM',
-    `VITE_TARUVI_APP_TITLE=${envValues.appTitle}`
+    'TARUVI_APP_TITLE=CRM',
+    `TARUVI_APP_TITLE=${envValues.appTitle}`
   );
 
   fs.writeFileSync(envPath, envContent);

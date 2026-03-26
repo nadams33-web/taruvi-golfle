@@ -646,18 +646,18 @@ navigate(-1);  // Go back
 
 ```env
 # .env.local
-VITE_TARUVI_BASE_URL=http://tenant1.127.0.0.1.nip.io:8000
-VITE_TARUVI_API_KEY=secret
-VITE_TARUVI_APP_SLUG=sample-app
+TARUVI_SITE_URL=http://tenant1.127.0.0.1.nip.io:8000
+TARUVI_API_KEY=secret
+TARUVI_APP_SLUG=sample-app
 ```
 
 ```typescript
 // src/taruviClient.ts
 import { Client } from "@taruvi/sdk";
 export const taruviClient = new Client({
-  baseUrl: import.meta.env.VITE_TARUVI_BASE_URL,
-  apiKey: import.meta.env.VITE_TARUVI_API_KEY,
-  appSlug: import.meta.env.VITE_TARUVI_APP_SLUG,
+  apiUrl: __TARUVI_SITE_URL__,
+  apiKey: __TARUVI_API_KEY__,
+  appSlug: __TARUVI_APP_SLUG__,
 });
 // Used by all providers. Direct SDK: taruviClient.httpClient.get("api/...");
 ```
@@ -1071,8 +1071,8 @@ Prompts for site name, then builds, zips `dist/`, and uploads to Taruvi frontend
 3. **Upload to Taruvi:**
    ```bash
    curl -X POST "https://api.taruvi.cloud/sites/${SITE_NAME}/api/cloud/frontend_workers/" \
-     -H "Authorization: Api-Key ${VITE_TARUVI_API_KEY}" \
-     -F "name=${VITE_TARUVI_APP_SLUG}" \
+     -H "Authorization: Api-Key ${TARUVI_API_KEY}" \
+     -F "name=${TARUVI_APP_SLUG}" \
      -F "is_internal=true" \
      -F "file=@dist.zip;type=application/zip"
    ```
@@ -1083,9 +1083,9 @@ Prompts for site name, then builds, zips `dist/`, and uploads to Taruvi frontend
    ```
 
 ### Environment Variables Required
-- `VITE_TARUVI_API_KEY` — API key for authentication
-- `VITE_TARUVI_APP_SLUG` — App/worker name
-- `SITE_NAME` — Target site (e.g., inferred from `VITE_TARUVI_BASE_URL` hostname)
+- `TARUVI_API_KEY` — API key for authentication
+- `TARUVI_APP_SLUG` — App/worker name
+- `SITE_NAME` — Target site (e.g., inferred from `TARUVI_SITE_URL` hostname)
 
 ### Build Notes (Docker)
 - `refine build` does NOT work inside the Docker container (symlinked node_modules)

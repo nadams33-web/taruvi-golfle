@@ -9,6 +9,7 @@ export default defineConfig(({ mode }) => {
       __TARUVI_SITE_URL__: JSON.stringify(env.TARUVI_SITE_URL ?? ""),
       __TARUVI_APP_SLUG__: JSON.stringify(env.TARUVI_APP_SLUG ?? ""),
       __TARUVI_API_KEY__: JSON.stringify(env.TARUVI_API_KEY ?? ""),
+      __TARUVI_APP_TITLE__: JSON.stringify(env.TARUVI_APP_TITLE ?? ""),
     },
     plugins: [react()],
     optimizeDeps: {

@@ -103,7 +103,7 @@ Copy `.env.example` to `.env` and fill in your values:
 TARUVI_SITE_URL=https://playground.taruvi.cloud
 TARUVI_API_KEY=your-api-key
 TARUVI_APP_SLUG=your-app-slug
-VITE_TARUVI_APP_TITLE=Your App Title
+TARUVI_APP_TITLE=Your App Title
 ```
 
 ---

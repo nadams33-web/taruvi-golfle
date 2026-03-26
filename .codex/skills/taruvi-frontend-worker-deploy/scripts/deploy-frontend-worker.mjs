@@ -389,19 +389,19 @@ async function main() {
 
   const envFile = resolveEnvFile(projectRoot, args.envFile);
   const env = loadEnv(envFile);
-  const apiKey = env.VITE_TARUVI_API_KEY;
-  const appName = args.appName || env.VITE_TARUVI_APP_SLUG;
-  const appField = args.appField || env.TARUVI_FRONTEND_WORKER_APP || env.VITE_TARUVI_APP_SLUG;
-  const site = args.site || env.TARUVI_FRONTEND_WORKER_SITE || inferSiteFromBaseUrl(env.VITE_TARUVI_BASE_URL);
+  const apiKey = env.TARUVI_API_KEY;
+  const appName = args.appName || env.TARUVI_APP_SLUG;
+  const appField = args.appField || env.TARUVI_FRONTEND_WORKER_APP || env.TARUVI_APP_SLUG;
+  const site = args.site || env.TARUVI_FRONTEND_WORKER_SITE || inferSiteFromBaseUrl(env.TARUVI_SITE_URL);
 
   if (!apiKey) {
-    throw new Error(`VITE_TARUVI_API_KEY not found in ${envFile}`);
+    throw new Error(`TARUVI_API_KEY not found in ${envFile}`);
   }
   if (!appName) {
-    throw new Error("App name not provided and VITE_TARUVI_APP_SLUG is missing");
+    throw new Error("App name not provided and TARUVI_APP_SLUG is missing");
   }
   if (!appField) {
-    throw new Error("App field not provided and VITE_TARUVI_APP_SLUG is missing");
+    throw new Error("App field not provided and TARUVI_APP_SLUG is missing");
   }
   if (!site) {
     throw new Error("Site not provided and could not be inferred from .env");

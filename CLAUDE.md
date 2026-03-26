@@ -1387,9 +1387,9 @@ npx @refinedev/codemod@latest refine4-to-refine5
 
 **Required Variables (.env.local):**
 ```env
-VITE_TARUVI_BASE_URL=http://tenant1.127.0.0.1.nip.io:8000
-VITE_TARUVI_API_KEY=secret
-VITE_TARUVI_APP_SLUG=sample-app
+TARUVI_SITE_URL=http://tenant1.127.0.0.1.nip.io:8000
+TARUVI_API_KEY=secret
+TARUVI_APP_SLUG=sample-app
 ```
 
 **Taruvi Client Initialization:**
@@ -1398,9 +1398,9 @@ VITE_TARUVI_APP_SLUG=sample-app
 import { Client } from "@taruvi/sdk";
 
 export const taruviClient = new Client({
-  baseUrl: import.meta.env.VITE_TARUVI_BASE_URL,
-  apiKey: import.meta.env.VITE_TARUVI_API_KEY,
-  appSlug: import.meta.env.VITE_TARUVI_APP_SLUG,
+  apiUrl: __TARUVI_SITE_URL__,
+  apiKey: __TARUVI_API_KEY__,
+  appSlug: __TARUVI_APP_SLUG__,
 });
 
 // The client is used by all providers in /src/providers/refineProviders.ts

@@ -2,12 +2,12 @@
 
 ## Env Mapping
 
-- `VITE_TARUVI_API_KEY`: send as `Authorization: Api-Key <value>`
-- `VITE_TARUVI_APP_SLUG`: preferred worker name
-- `VITE_TARUVI_APP_SLUG`: default multipart `app` field value
-- `VITE_TARUVI_BASE_URL`: infer site from hostname only when an explicit site is not provided
+- `TARUVI_API_KEY`: send as `Authorization: Api-Key <value>`
+- `TARUVI_APP_SLUG`: preferred worker name
+- `TARUVI_APP_SLUG`: default multipart `app` field value
+- `TARUVI_SITE_URL`: infer site from hostname only when an explicit site is not provided
 - `TARUVI_FRONTEND_WORKER_SITE`: optional override for the Taruvi site name
-- `TARUVI_FRONTEND_WORKER_APP`: optional override for the multipart `app` field; default to `VITE_TARUVI_APP_SLUG`
+- `TARUVI_FRONTEND_WORKER_APP`: optional override for the multipart `app` field; default to `TARUVI_APP_SLUG`
 
 ## API Flow
 
@@ -46,7 +46,7 @@ Set-active-build request body:
 
 Set-active-build auth:
 
-- `Authorization: Api-Key <VITE_TARUVI_API_KEY>`
+- `Authorization: Api-Key <TARUVI_API_KEY>`
 
 ## Selection Rules
 
@@ -62,13 +62,13 @@ This workspace contains a Vite app at `/Users/kj/Documents/Projects/Taruvi Hacka
 
 Observed `.env` keys in that project:
 
-- `VITE_TARUVI_BASE_URL`
-- `VITE_TARUVI_API_KEY`
-- `VITE_TARUVI_APP_SLUG`
+- `TARUVI_SITE_URL`
+- `TARUVI_API_KEY`
+- `TARUVI_APP_SLUG`
 - `VITE_TARUVI_APP_TITLE`
 
 Current values imply:
 
-- Site: `hackkj` from `VITE_TARUVI_BASE_URL=https://hackkj.taruvi.cloud`
-- Worker name: `test` from `VITE_TARUVI_APP_SLUG=test`
-- App field: `test` from `VITE_TARUVI_APP_SLUG=test`
+- Site: `hackkj` from `TARUVI_SITE_URL=https://hackkj.taruvi.cloud`
+- Worker name: `test` from `TARUVI_APP_SLUG=test`
+- App field: `test` from `TARUVI_APP_SLUG=test`

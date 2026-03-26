@@ -56,7 +56,7 @@ export interface AppSettingsContextType {
 
 // Default settings from environment variables
 const getDefaultSettings = (): AppSettings => ({
-  displayName: import.meta.env.VITE_TARUVI_APP_TITLE || "App",
+  displayName: __TARUVI_APP_TITLE__ || "App",
   iconUrl: null,
   primaryColor: "#EAB308", // Default yellow
   secondaryColor: "#8B5CF6", // Default purple
